@@ -1,0 +1,40 @@
+---
+
+- name: Installing Windows Updates
+
+  hosts: win
+
+  tasks:
+
+    - name: Download windows updates
+
+      ansible.windows.win_updates:
+
+        category_names: '*'
+
+        reject_list:
+
+        - Drivers
+
+        state: downloaded
+
+        reboot: no
+
+    - name: Notify user of change
+
+      community.windows.win_msg:
+
+        display_seconds: 180
+
+        msg: Automatic upgrade complete. Reboot may be neccessary.
+
+
+#    - name: Notify users of Changes
+#
+#      community.windows.win_say:
+#
+#        start_sound_path: C:\Windows\Media\Windows Ding.wav
+#        speech_speed: -1
+#        msg: "Windows Updates have been applied. Reboot when you are ready. Thank you so much!"
+#        end_sound_path: C:\Windows\Media\Windows Ding.wav
+
